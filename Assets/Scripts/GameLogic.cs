@@ -76,29 +76,30 @@ public class GameLogic : MonoBehaviour {
 		if (level > 0 && level < 3){
 			if (TimeLeft.timeLeft > 0 && ballCount == 0) {
 
-					TimeLeft.timeLeft = 0;
+				TimeLeft.timeLeft = 0;
 
-					this.GetComponent<AudioSource> ().Play ();
+				this.GetComponent<AudioSource> ().Play ();
 					
 
 			} 
 			
-				else if (TimeLeft.timeLeft < -3 && ballCount == 0){
+			else if (TimeLeft.timeLeft < -3 && ballCount == 0){
 
-						spawnBalls (thrusts.Dequeue());
+				spawnBalls (thrusts.Dequeue());
 
-						level++;
+				level++;
 
-						TimeLeft.timeLeft = times.Dequeue();
+				TimeLeft.timeLeft = times.Dequeue();
 
 
 			}
-				else if (TimeLeft.timeLeft <= 0 && ballCount > 0) {
+			
+			else if (TimeLeft.timeLeft <= 0 && ballCount > 0) {
 
-						result = Results.GAMEOVER;
+				result = Results.GAMEOVER;
 
-						if (TimeLeft.timeLeft < - 3)
-							SceneManager.LoadScene ("menu");
+				if (TimeLeft.timeLeft < - 3)
+					SceneManager.LoadScene ("menu");
 
 			}
 
