@@ -4,26 +4,26 @@ using System.Collections;
 public class Ball : MonoBehaviour {
 
 
-	public static float thrust;
+	public float thrust;
 
 	// Use this for initialization
-	void Start () {
-		
-		this.gameObject.GetComponent<Rigidbody> ().AddForce (new Vector3(0.5f,0,0.5f)*thrust, ForceMode.Impulse);
+	void Start ()
+    {
+		GetComponent<Rigidbody> ().AddForce (new Vector3(0.5f,0,0.5f)*thrust, ForceMode.Impulse);
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update ()
+    {
 		RaycastHit hitInfo = new RaycastHit ();
 
 
 		bool hit = Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo, Mathf.Infinity);
 
-		if (Input.GetMouseButton(0) && hit && hitInfo.collider == this.GetComponent<SphereCollider>() && TimeLeft.timeLeft >=0) {
-
-			//decrement balls counter
-			GameLogic.ballCount -= 1;
+		if (Input.GetMouseButton(0) && hit && hitInfo.collider == GetComponent<SphereCollider>() && TimeManager.timeLeft >=0)
+        {
+            //decrement balls counter
+            GameManager.Instance.ballCount -= 1;
 
 			//play explosion animation
 			GameObject effect = GameObject.Find("Explosion");
@@ -32,12 +32,11 @@ public class Ball : MonoBehaviour {
 
 			effect.GetComponentInChildren<Animator> ().Play (0);
 
-			//Play sound
-			this.GetComponent<AudioSource>().Play();
+            //Play sound
+            effect.GetComponent<AudioSource>().Play();
 
-			//destroy object
-			this.gameObject.transform.position = new Vector3(0.0f,0.0f,0.0f);
-
+            //destroy object
+            Destroy(gameObject);
 		}
 
 
